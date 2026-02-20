@@ -22,8 +22,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestPropertySource(locations = "classpath:application-test.properties")
 @Transactional
 class DepositWithdrawalServiceIT {
-    private static final String DEPOSIT_REQUEST_JSON = "src/test/resources/json/deposit-request.json";
-    private static final String BALANCE_AFTER_DEPOSIT_ESPONSE_JSON = "src/test/resources/json/balance-after-deposit-response.json";
+    private static final String DEPOSIT_REQUEST_JSON = "src/test/resources/json/correct-deposit-request.json";
+    private static final String BALANCE_AFTER_DEPOSIT_ESPONSE_JSON = "src/test/resources/json/balance-after-correct-deposit-response.json";
     private static final String WITHDRAWAL_REQUEST_JSON = "src/test/resources/json/withdrawal-request.json";
     private static final String BALANCE_AFTER_WITHDRAWAL_RESPONSE_JSON = "src/test/resources/json/balance-after-withdrawal-response.json";
 

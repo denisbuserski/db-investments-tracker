@@ -28,7 +28,7 @@ public class GoldBuyRequest {
 
     private URL url;
 
-    @NotNull(message = DATE_NOT_NULL)
+    @NotNull(message = DATE_NOT_NULL_NOR_EMPTY)
     @PastOrPresent(message = DATE_NOT_IN_FUTURE)
     private LocalDate transactionDate;
 

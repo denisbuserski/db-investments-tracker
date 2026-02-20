@@ -1,6 +1,5 @@
 package com.investments.tracker.service.deposit;
 
-import com.investments.tracker.controller.cashtransaction.CashTransactionResponse;
 import com.investments.tracker.model.Balance;
 import com.investments.tracker.model.CashTransaction;
 import com.investments.tracker.controller.balance.BalanceResponse;
@@ -13,15 +12,9 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 import static com.investments.tracker.controller.balance.BalanceResponse.createBalanceResponse;
-import static com.investments.tracker.enums.CashTransactionType.DEPOSIT;
 
 @Service
 @Slf4j
@@ -37,6 +30,7 @@ public class DepositService {
     public BalanceResponse insertDeposit(DepositRequest depositRequest) {
         CashTransaction deposit = cashTransactionMapper.createCashtransaction(depositRequest, depositMapper);
         cashTransactionRepository.save(deposit);
+        log.info("Deposit successfully saved in the database");
         Balance newBalance;
 
         Optional<Balance> latestBalance = balanceRepository.findTopByOrderByIdDesc();
@@ -46,19 +40,9 @@ public class DepositService {
             newBalance = depositBalanceBuilderService.createBalanceFromCashTransaction(null, deposit);
         }
         balanceRepository.save(newBalance);
-        log.info("Deposit for [{} {}] successful", String.format("%.2f", deposit.getAmount()), deposit.getCurrency());
+        log.info("Balance successfully saved in the database");
+        log.info("Deposit for [{} {}] successfully inserted", String.format("%.2f", deposit.getAmount()), deposit.getCurrency());
         return createBalanceResponse(newBalance);
     }
 
-    public List<CashTransactionResponse> getAllDepositsFromTo(LocalDate from, LocalDate to) {
-        List<CashTransaction> depositsResult = cashTransactionRepository.findByCashTransactionTypeAndDateBetween(DEPOSIT, from, to);
-        if (!depositsResult.isEmpty()) {
-            return cashTransactionMapper.mapToResponseDTOList(depositsResult, DEPOSIT);
-        }
-        return Collections.emptyList();
-    }
-
-    public BigDecimal getTotalDepositsAmount() {
-        return cashTransactionRepository.getTotalAmountOf(DEPOSIT).orElse(BigDecimal.ZERO);
-    }
 }

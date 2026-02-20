@@ -34,6 +34,7 @@ public class ReportController {
         int weekNumber = lastDayOfTheWeek.get(WeekFields.ISO.weekOfWeekBasedYear());
         LocalDate firstDayOfWeek = lastDayOfTheWeek.minusDays(6); // If the last day of the week is in the new year
         log.info("Preparing weekly view report for week {} of year {}", weekNumber, firstDayOfWeek.getYear());
+
         List<WeeklyProductPositionDTO> weeklyProductPositions = reportService.prepareWeeklyViewReport(lastDayOfTheWeek);
         return ResponseEntity.status(HttpStatus.CREATED).body(weeklyProductPositions);
     }

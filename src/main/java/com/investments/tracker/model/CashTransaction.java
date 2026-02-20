@@ -18,6 +18,7 @@ public class CashTransaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     private LocalDate date;
 
     @Enumerated(EnumType.STRING)

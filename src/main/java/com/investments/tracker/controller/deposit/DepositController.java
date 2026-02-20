@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping("/api/v1/deposits")
+@RequestMapping("/api/deposits")
 @CrossOrigin(
         origins = "http://localhost:3000",
         methods = { RequestMethod.POST }
@@ -30,7 +30,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class DepositController {
     private final DepositService depositService;
 
-    @PostMapping(value = "/in", produces = APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/v1/insert", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(
             operationId = "insertDeposit",
@@ -41,7 +41,7 @@ public class DepositController {
                     responseCode = "201",
                     description = "Deposit created",
                     content = {
-                            @Content(mediaType = "application/json",
+                            @Content(mediaType = APPLICATION_JSON_VALUE,
                                     array = @ArraySchema(schema = @Schema(implementation = BalanceResponse.class)))
                     }),
             @ApiResponse(responseCode = "400", description = "Bad request"),
@@ -49,6 +49,7 @@ public class DepositController {
     })
     public ResponseEntity<BalanceResponse> insertDeposit(@RequestBody @Valid DepositRequest depositRequest) {
         log.info("Inserting deposit for [{} {}]", String.format("%.2f", depositRequest.getAmount()), depositRequest.getCurrency());
+
         BalanceResponse balanceResponse = depositService.insertDeposit(depositRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(balanceResponse);
     }

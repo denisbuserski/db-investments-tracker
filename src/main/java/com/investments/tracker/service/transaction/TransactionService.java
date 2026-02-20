@@ -45,8 +45,10 @@ public class TransactionService{
 
             BalanceResponse balanceResponse = null;
             if (transactionType == BUY) {
-                if (currentBalance.get().getBalance().compareTo(transactionValue) >= 0) {
-                    balanceResponse = buyTransactionService.insertBuyTransaction(currentBalance.get(), transactionValue, transactionRequest);
+                Balance balance = currentBalance.get();
+                if (balance.getBalance().compareTo(transactionValue) >= 0) {
+                    log.info("Inserting {} transaction", BUY);
+                    balanceResponse = buyTransactionService.insertBuyTransaction(balance, transactionValue, transactionRequest);
                 } else {
                     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, TRANSACTION_NOT_POSSIBLE_NOT_ENOUGH_MONEY.replace("%1", "BUY"));
                 }

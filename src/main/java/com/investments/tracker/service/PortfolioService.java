@@ -18,7 +18,7 @@ import static com.investments.tracker.enums.Status.ACTIVE;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class PortfolioService{
+public class PortfolioService {
     private final PortfolioRepository portfolioRepository;
 
     @Transactional
@@ -48,12 +48,14 @@ public class PortfolioService{
 //                log.warn("Portfolio for product [{}] was not updated", productName);
 //            }
         } else {
+            BigDecimal averagePrice = totalTransactionValue.divide(BigDecimal.valueOf(transactionRequest.getQuantity()), 4, RoundingMode.HALF_UP);
+
             Portfolio portfolio = Portfolio.builder()
                     .lastUpdated(transactionDate)
                     .productName(productName)
                     .quantity(transactionRequest.getQuantity())
                     .investedMoney(totalTransactionValue)
-                    .averagePrice(totalTransactionValue.divide(BigDecimal.valueOf(transactionRequest.getQuantity()), 4, RoundingMode.HALF_UP))
+                    .averagePrice(averagePrice)
                     .dividendsAmount(BigDecimal.ZERO)
                     .status(ACTIVE)
                     .build();
@@ -61,6 +63,8 @@ public class PortfolioService{
             portfolioRepository.save(portfolio);
         }
     }
+
+
 
     @Transactional
     public void updatePortfolioForSellTransaction() {
@@ -82,5 +86,6 @@ public class PortfolioService{
     public Optional<Portfolio> findByProductName(String productName) {
         return portfolioRepository.findByProductName(productName);
     }
+
 }
 

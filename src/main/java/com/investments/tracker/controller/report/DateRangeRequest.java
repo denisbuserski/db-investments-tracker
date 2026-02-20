@@ -10,18 +10,18 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 import static com.investments.tracker.validation.ValidationMessages.DATE_NOT_IN_FUTURE;
-import static com.investments.tracker.validation.ValidationMessages.DATE_NOT_NULL;
+import static com.investments.tracker.validation.ValidationMessages.DATE_NOT_NULL_NOR_EMPTY;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Builder
 public class DateRangeRequest {
-    @NotNull(message = DATE_NOT_NULL)
+    @NotNull(message = DATE_NOT_NULL_NOR_EMPTY)
     @PastOrPresent(message = DATE_NOT_IN_FUTURE)
     private LocalDate startDate;
 
-    @NotNull(message = DATE_NOT_NULL)
+    @NotNull(message = DATE_NOT_NULL_NOR_EMPTY)
     @PastOrPresent(message = DATE_NOT_IN_FUTURE)
     private LocalDate endDate;
 }

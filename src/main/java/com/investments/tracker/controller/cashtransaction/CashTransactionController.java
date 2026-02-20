@@ -27,10 +27,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import static com.investments.tracker.enums.CashTransactionType.DEPOSIT;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping("/api/v1/cashtransactions")
+@RequestMapping("/api/cashtransactions")
 @CrossOrigin(
         origins = "http://localhost:3000",
         methods = RequestMethod.GET
@@ -39,16 +40,12 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Tag(name = "Cash Transaction Controller", description = "REST methods for retrieving cash transaction data")
 @RequiredArgsConstructor
 public class CashTransactionController {
-    private final DepositService depositService;
-    private final WithdrawalService withdrawalService;
-    private final DividendService dividendService;
-    private final FeeService feeService;
+    private final CashTransactionService cashTransactionService;
 
     @Value("${application.start-date}")
     private String startDate;
 
-    // TODO: Add Pagination
-    @GetMapping(value = "/get", produces = APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/v1/get", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @Operation(
             operationId = "getCashTransactions",
@@ -59,7 +56,7 @@ public class CashTransactionController {
                     responseCode = "200",
                     description = "Got cash transactions in range",
                     content = {
-                            @Content(mediaType = "application/json",
+                            @Content(mediaType = APPLICATION_JSON_VALUE,
                                     array = @ArraySchema(schema = @Schema(implementation = CashTransactionResponse.class)))
                     }),
             @ApiResponse(responseCode = "400", description = "Bad request"),
@@ -71,19 +68,20 @@ public class CashTransactionController {
             @Parameter(description = "The end date of the range Format YYYY-MM-DD") @RequestParam(name = "toDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Optional<LocalDate> to) {
         LocalDate fromDate = from.orElse(LocalDate.parse(startDate));
         LocalDate toDate = to.orElse(LocalDate.now());
-        log.info("Getting cash transactions type: {} from [{}] to [{}]", type.name().toUpperCase(), fromDate, toDate);
+        log.info("Getting cash transactions of type {} from [{}] to [{}]", type.name().toUpperCase(), fromDate, toDate);
+
         List<CashTransactionResponse> result = switch (type) {
-            case DEPOSIT -> depositService.getAllDepositsFromTo(fromDate, toDate);
-            case WITHDRAWAL -> withdrawalService.getAllWithdrawalsFromTo(fromDate, toDate);
-            case DIVIDEND -> this.dividendService.getAllDividendsFromTo(fromDate, toDate);
-            case FEE -> this.feeService.getAllFeesFromTo(fromDate, toDate);
+            case DEPOSIT -> cashTransactionService.getAllCashTransactionsFromTo(DEPOSIT, fromDate, toDate);
+            case WITHDRAWAL -> null;
+            case DIVIDEND -> null;
+            case FEE -> null;
         };
 
-        return returnCashTransactionsResponseList(result);
+        return returnCashTransactionsResponse(result);
     }
 
 
-    @GetMapping(value = "/get/total/amount", produces = APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/v1/get-total-amount", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @Operation(
             operationId = "getTotalCashTransactionsAmount",
@@ -94,7 +92,7 @@ public class CashTransactionController {
                     responseCode = "200",
                     description = "Got total cash transactions amount",
                     content = {
-                            @Content(mediaType = "application/json",
+                            @Content(mediaType = APPLICATION_JSON_VALUE,
                                     array = @ArraySchema(schema = @Schema(implementation = BigDecimal.class)))
                     }),
             @ApiResponse(responseCode = "400", description = "Bad request"),
@@ -103,22 +101,21 @@ public class CashTransactionController {
     public ResponseEntity<BigDecimal> getTotalCashTransactionsAmount(
             @Parameter(description = "The type of cash transaction", required = true) @RequestParam("cashTransactionType") CashTransactionType type) {
         log.info("Getting total amount of cash transactions with type: {}", type.name().toUpperCase());
+
         BigDecimal totalAmount = switch (type) {
-            case DEPOSIT -> depositService.getTotalDepositsAmount();
-            case WITHDRAWAL -> withdrawalService.getTotalWithdrawalsAmount();
-            case DIVIDEND -> this.dividendService.getTotalDividendsAmount();
-            case FEE -> this.feeService.getTotalFeesAmount();
+            case DEPOSIT -> cashTransactionService.getTotalAmount(DEPOSIT);
+            case WITHDRAWAL -> null;
+            case DIVIDEND -> null;
+            case FEE -> null;
         };
-        return new ResponseEntity<>(totalAmount, HttpStatus.OK);
+        return ResponseEntity.ok(totalAmount);
     }
 
-    private static ResponseEntity<List<CashTransactionResponse>> returnCashTransactionsResponseList(List<CashTransactionResponse> cashTransactionResponses) {
+    private static ResponseEntity<List<CashTransactionResponse>> returnCashTransactionsResponse(List<CashTransactionResponse> cashTransactionResponses) {
         if (cashTransactionResponses.isEmpty()) {
-            log.info("No cash transactions found");
-            return new ResponseEntity<>(Collections.EMPTY_LIST, HttpStatus.OK);
+            return ResponseEntity.ok(Collections.emptyList());
         } else {
-            log.info("Found [{}] cash transactions of type: {}", cashTransactionResponses.size(), cashTransactionResponses.get(0).type());
-            return new ResponseEntity<>(cashTransactionResponses, HttpStatus.OK);
+            return ResponseEntity.ok(cashTransactionResponses);
         }
     }
 }

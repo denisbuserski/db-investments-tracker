@@ -1,6 +1,6 @@
 # Investments tracker application
 
-_(A brief summary of what your project does in 1-2 lines.)_
+An Investments tracker application, that helps you track your investments.
 
 
 ## Table of Contents
@@ -8,8 +8,9 @@ _(A brief summary of what your project does in 1-2 lines.)_
 <details>
 <summary><h3>About the Project</h3></summary>
 
-This project is an Investments tracker application, that helps you track your investments.
-Deposits and Withdrawals can be only in 1 currency - EUR
+The project is an Investments tracker application, that helps you track your investments.
+
+Currently deposits and withdrawals can be only in 1 currency - EUR.
 
 </details>
 
@@ -41,12 +42,14 @@ _Diagram how the app works_
 <details>
 <summary><h3>Features</h3></summary>
 
+- CRUD Operations
+- Swagger API Documentation
+
 User Registration & Login
 JWT Authentication
-CRUD Operations
 Role-based Authorization
 Pagination & Sorting
-Swagger API Documentation
+
 Error Handling
 
 </details>
@@ -55,7 +58,7 @@ Error Handling
 <details>
 <summary><h3>Installation Guide</h3></summary>
 
-What is needed to run the project
+_How to run the project locally_
 
 </details>
 
@@ -72,8 +75,7 @@ Frontend installation
 <details>
 <summary><h3>API Endpoints</h3></summary>
 
-All API endpoints can be found here - 
-http://localhost:8080/swagger-ui/index.html
+All API endpoints can be found here - http://localhost:8080/swagger-ui/index.html
 
 </details> 
 
@@ -81,7 +83,7 @@ http://localhost:8080/swagger-ui/index.html
 <details>
 <summary><h3>Database Structure</h3></summary>
 
-DB schema
+DB schema - `db_investments_tracker`
 
 Table - `balance`
 - `date`
@@ -98,11 +100,17 @@ Table - `balance`
 - `realized_pl`
 
 Table - `cash_transactions`
+
 Table - `dividends`
+
 Table - `transactions`
+
 Table - `portfolio`
+
 Table - `weekly_positions`
+
 Table - `portfolio_value_history`
+
 Table - `yearly_statements`
 
 </details>
@@ -111,14 +119,15 @@ Table - `yearly_statements`
 <details>
 <summary><h3>Folder Structure</h3></summary>
 
+_Add screenshots of the folder structure_
+
 </details>
 
 
 <details>
 <summary><h3>Screenshots</h3></summary>
 
-Home Page
-Login Page
+_Add screenshots of the FE_
 
 </details>
 
