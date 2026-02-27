@@ -1,6 +1,5 @@
-package com.investments.tracker.unit.service;
+package com.investments.tracker.unit.service.deposit;
 
-import com.investments.tracker.controller.cashtransaction.CashTransactionResponse;
 import com.investments.tracker.mapper.CashTransactionMapper;
 import com.investments.tracker.mapper.DepositMapper;
 import com.investments.tracker.model.Balance;
@@ -104,8 +103,8 @@ class DepositServiceTest {
         when(depositBalanceBuilderService.createBalanceFromCashTransaction(isNull(), eq(deposit))).thenReturn(balance);
 
         BalanceResponse balanceResponse = depositService.insertDeposit(depositRequest);
-        assertEquals(balanceResponse.getBalance(), BigDecimal.valueOf(1000));
-        assertEquals(balanceResponse.getTotalDeposits(), BigDecimal.valueOf(1000));
+        assertEquals(balanceResponse.balance(), BigDecimal.valueOf(1000));
+        assertEquals(balanceResponse.totalDeposits(), BigDecimal.valueOf(1000));
 
         verify(cashTransactionMapper).createCashtransaction(eq(depositRequest), eq(depositMapper));
         verify(cashTransactionRepository).save(any(CashTransaction.class));
@@ -123,8 +122,8 @@ class DepositServiceTest {
         when(depositBalanceBuilderService.createBalanceFromCashTransaction(eq(balance), eq(deposit))).thenReturn(balance2);
 
         BalanceResponse balanceResponse = depositService.insertDeposit(depositRequest);
-        assertEquals(0, balanceResponse.getBalance().compareTo(BigDecimal.valueOf(2000)));
-        assertEquals(0, balanceResponse.getTotalDeposits().compareTo(BigDecimal.valueOf(2000)));
+        assertEquals(0, balanceResponse.balance().compareTo(BigDecimal.valueOf(2000)));
+        assertEquals(0, balanceResponse.totalDeposits().compareTo(BigDecimal.valueOf(2000)));
 
         verify(cashTransactionMapper).createCashtransaction(eq(depositRequest), eq(depositMapper));
         verify(cashTransactionRepository).save(any(CashTransaction.class));

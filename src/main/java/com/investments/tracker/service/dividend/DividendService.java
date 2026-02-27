@@ -26,7 +26,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import static com.investments.tracker.controller.balance.BalanceResponse.createBalanceResponse;
+
+import static com.investments.tracker.service.BalanceService.createBalanceResponse;
 import static com.investments.tracker.validation.ValidationMessages.PRODUCT_NOT_EXIST;
 import static java.math.RoundingMode.CEILING;
 import static java.math.RoundingMode.FLOOR;

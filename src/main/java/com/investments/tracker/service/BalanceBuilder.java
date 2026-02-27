@@ -1,4 +1,5 @@
 package com.investments.tracker.service;
+import com.investments.tracker.controller.balance.BalanceResponse;
 import com.investments.tracker.model.Balance;
 import com.investments.tracker.model.CashTransaction;
 import java.math.BigDecimal;

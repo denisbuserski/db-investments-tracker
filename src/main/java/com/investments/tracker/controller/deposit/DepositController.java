@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping("/api/deposits")
+@RequestMapping("/api/v1/deposits")
 @CrossOrigin(
         origins = "http://localhost:3000",
         methods = { RequestMethod.POST }
@@ -30,7 +30,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class DepositController {
     private final DepositService depositService;
 
-    @PostMapping(value = "/v1/insert", produces = APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/insert", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(
             operationId = "insertDeposit",

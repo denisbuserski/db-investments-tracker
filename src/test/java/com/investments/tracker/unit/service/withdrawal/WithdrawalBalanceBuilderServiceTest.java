@@ -1,9 +1,8 @@
-package com.investments.tracker.unit.service;
+package com.investments.tracker.unit.service.withdrawal;
 
 import com.investments.tracker.model.Balance;
 import com.investments.tracker.model.CashTransaction;
 import com.investments.tracker.service.withdrawal.WithdrawalBalanceBuilderService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

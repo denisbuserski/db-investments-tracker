@@ -14,7 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 
-import static com.investments.tracker.controller.balance.BalanceResponse.createBalanceResponse;
+import static com.investments.tracker.service.BalanceService.createBalanceResponse;
+
 
 @Service
 @Slf4j

@@ -16,29 +16,20 @@ public class WithdrawalBalanceBuilderService extends BalanceBuilder {
     public Balance createBalanceFromCashTransaction(Balance balance, CashTransaction withdrawal) {
         LocalDate newBalanceDate = withdrawal.getDate();
         BigDecimal newBalanceAmount = balance.getBalance().subtract(withdrawal.getAmount());
-        BigDecimal newTotalInvestments = balance.getTotalInvestments();
-        BigDecimal newTotalDeposits = balance.getTotalDeposits();
         BigDecimal newTotalWithdrawals = balance.getTotalWithdrawals().add(withdrawal.getAmount());
-        BigDecimal newTotalDividends = balance.getTotalDividends();
-        BigDecimal newTotalFees = balance.getTotalFees();
-        BigDecimal newLastPortfolioValue = balance.getLastPortfolioValue();
-        BigDecimal lastUnrealizedPl = balance.getLastUnrealizedPl();
-        BigDecimal lastUnrealizedPlPercentage = balance.getLastUnrealizedPlPercentage();
-        BigDecimal totalSold = balance.getTotalSold();
-        BigDecimal realizedPl = balance.getRealizedPl();
 
         return balanceBuilder(
                 newBalanceDate,
                 newBalanceAmount,
-                newTotalInvestments,
-                newTotalDeposits,
+                balance.getTotalInvestments(),
+                balance.getTotalDeposits(),
                 newTotalWithdrawals,
-                newTotalDividends,
-                newTotalFees,
-                newLastPortfolioValue,
-                lastUnrealizedPl,
-                lastUnrealizedPlPercentage,
-                totalSold,
-                realizedPl);
+                balance.getTotalDividends(),
+                balance.getTotalFees(),
+                balance.getLastPortfolioValue(),
+                balance.getLastUnrealizedPl(),
+                balance.getLastUnrealizedPlPercentage(),
+                balance.getTotalSold(),
+                balance.getRealizedPl());
     }
 }

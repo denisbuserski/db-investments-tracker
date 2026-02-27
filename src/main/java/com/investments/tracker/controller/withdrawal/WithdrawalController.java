@@ -30,12 +30,12 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class WithdrawalController {
     private final WithdrawalService withdrawalService;
 
-    @PostMapping(value = "/out", produces = APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/create", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(
-            operationId = "insertWithdraw",
-            summary = "Insert new withdrawal in the database",
-            description = "Insert new withdrawal in the database")
+            operationId = "createWithdraw",
+            summary = "Create new withdrawal in the database",
+            description = "Create new withdrawal in the database")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "201",
@@ -47,10 +47,11 @@ public class WithdrawalController {
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
-    public ResponseEntity<BalanceResponse> insertWithdraw(@RequestBody @Valid WithdrawalRequest withdrawalRequest) {
-        log.info("Inserting withdrawal for [{} {}]", String.format("%.2f", withdrawalRequest.getAmount()), withdrawalRequest.getCurrency());
+    public ResponseEntity<BalanceResponse> createWithdraw(@RequestBody @Valid WithdrawalRequest withdrawalRequest) {
+        log.info("Creating withdrawal for [{} {}]", String.format("%.2f", withdrawalRequest.getAmount()), withdrawalRequest.getCurrency());
+
         BalanceResponse balanceResponse = withdrawalService.insertWithdraw(withdrawalRequest);
-        return new ResponseEntity<>(balanceResponse, HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(balanceResponse);
     }
 
 }

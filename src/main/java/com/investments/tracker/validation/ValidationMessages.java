@@ -2,14 +2,11 @@ package com.investments.tracker.validation;
 
 public class ValidationMessages {
     public static final String DATE_NOT_NULL_NOR_EMPTY = "Date cannot be NULL or empty!";
-    public static final String DATE_NOT_EMPTY = "Date cannot be empty!";
     public static final String DATE_NOT_IN_FUTURE = "Date cannot be in the future!";
     public static final String AMOUNT_NOT_NULL = "Amount cannot be NULL!";
-    public static final String AMOUNT_NOT_EMPTY = "Amount cannot be empty!";
     public static final String AMOUNT_MORE_THAN_ZERO = "Amount must be more than 0!";
     public static final String AMOUNT_DIGITS = "Amount must have at most 2 decimal places!";
     public static final String CURRENCY_NOT_NULL = "Currency cannot be NULL!";
-    public static final String CURRENCY_NOT_EMPTY = "Currency cannot be empty!";
     public static final String DESCRIPTION_NOT_NULL = "Description cannot be NULL!";
     public static final String DESCRIPTION_NOT_EMPTY = "Description must be between 1 and 255 characters!";
     public static final String QUANTITY_MORE_THAN_ZERO = "Quantity must be more than 0!";
@@ -17,8 +14,6 @@ public class ValidationMessages {
 
 
     // Withdrawal
-    public static final String WITHDRAWAL_AMOUNT_NOT_NULL = "Withdrawal amount cannot be NULL!";
-    public static final String WITHDRAWAL_AMOUNT_MORE_THAN_ZERO = "Withdrawal amount must be more than 0!";
     public static final String WITHDRAWAL_DATE_NOT_BEFORE_LATEST_BALANCE = "Withdrawal date cannot be before the latest balance date!";
     public static final String WITHDRAWAL_NOT_POSSIBLE_BALANCE_DOES_NOT_EXIST = "Withdrawal cannot be made, because no balance exists!";
     public static final String NOT_ENOUGH_TO_WITHDRAWAL = "You don't have enough money to withdraw. Current balance is [%1 %2]";

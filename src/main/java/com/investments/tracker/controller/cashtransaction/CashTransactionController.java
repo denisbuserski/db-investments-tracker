@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.investments.tracker.enums.CashTransactionType.DEPOSIT;
+import static com.investments.tracker.enums.CashTransactionType.WITHDRAWAL;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
@@ -72,7 +73,7 @@ public class CashTransactionController {
 
         List<CashTransactionResponse> result = switch (type) {
             case DEPOSIT -> cashTransactionService.getAllCashTransactionsFromTo(DEPOSIT, fromDate, toDate);
-            case WITHDRAWAL -> null;
+            case WITHDRAWAL -> cashTransactionService.getAllCashTransactionsFromTo(WITHDRAWAL, fromDate, toDate);
             case DIVIDEND -> null;
             case FEE -> null;
         };
@@ -104,7 +105,7 @@ public class CashTransactionController {
 
         BigDecimal totalAmount = switch (type) {
             case DEPOSIT -> cashTransactionService.getTotalAmount(DEPOSIT);
-            case WITHDRAWAL -> null;
+            case WITHDRAWAL -> cashTransactionService.getTotalAmount(WITHDRAWAL);
             case DIVIDEND -> null;
             case FEE -> null;
         };

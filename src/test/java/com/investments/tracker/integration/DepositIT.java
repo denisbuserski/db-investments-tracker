@@ -263,17 +263,4 @@ class DepositIT {
                 .andExpect(jsonPath("$.errors", hasItem(DESCRIPTION_NOT_EMPTY)));
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

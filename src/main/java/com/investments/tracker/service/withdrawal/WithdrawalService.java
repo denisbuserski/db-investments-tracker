@@ -16,14 +16,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.Collections;
-import java.util.List;
+
 import java.util.Optional;
 
-import static com.investments.tracker.controller.balance.BalanceResponse.createBalanceResponse;
-import static com.investments.tracker.enums.CashTransactionType.WITHDRAWAL;
+import static com.investments.tracker.service.BalanceService.createBalanceResponse;
 import static com.investments.tracker.validation.ValidationMessages.*;
 
 
@@ -53,6 +49,7 @@ public class WithdrawalService {
                     Balance newBalance = withdrawalBalanceBuilderService.createBalanceFromCashTransaction(balance, withdrawal);
                     balanceRepository.save(newBalance);
                     log.info("Withdrawal for [{} {}] successful", String.format("%.2f", withdrawal.getAmount()), withdrawal.getCurrency());
+
                     return createBalanceResponse(newBalance);
                 } else {
                     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, NOT_ENOUGH_TO_WITHDRAWAL
@@ -64,18 +61,6 @@ public class WithdrawalService {
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, WITHDRAWAL_NOT_POSSIBLE_BALANCE_DOES_NOT_EXIST);
         }
-    }
-
-    public List<CashTransactionResponse> getAllWithdrawalsFromTo(LocalDate from, LocalDate to) {
-        List<CashTransaction> withdrawalsResult = cashTransactionRepository.findByCashTransactionTypeAndDateBetween(WITHDRAWAL, from, to);
-        if (!withdrawalsResult.isEmpty()) {
-            return cashTransactionMapper.mapToResponseDTOList(withdrawalsResult, WITHDRAWAL);
-        }
-        return Collections.emptyList();
-    }
-
-    public BigDecimal getTotalWithdrawalsAmount() {
-        return this.cashTransactionRepository.getTotalAmountOf(WITHDRAWAL).orElse(BigDecimal.ZERO);
     }
 
 }

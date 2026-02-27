@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
-import static com.investments.tracker.controller.balance.BalanceResponse.createBalanceResponse;
+import static com.investments.tracker.service.BalanceService.createBalanceResponse;
 
 
 @Service
