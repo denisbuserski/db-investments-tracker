@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping("/api/v1/preciousmetals/gold")
+@RequestMapping("/api/v1/preciousmetals")
 @CrossOrigin(
         origins = "http://localhost:3000",
         methods = { RequestMethod.POST }
@@ -26,7 +26,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class PreciousMetalsController {
     private final GoldService goldService;
 
-    @PostMapping(value = "/in", produces = APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/gold/in", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(
             operationId = "insertGoldTransaction",
