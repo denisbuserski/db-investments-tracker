@@ -1,0 +1,9 @@
+[
+  {
+    "date": "2025-10-10",
+    "type": "DEPOSIT",
+    "amount": 5000,
+    "currency": "EUR",
+    "description": "Test deposit"
+  }
+]

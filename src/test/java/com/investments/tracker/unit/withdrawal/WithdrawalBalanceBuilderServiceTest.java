@@ -1,4 +1,4 @@
-package com.investments.tracker.unit.service.withdrawal;
+package com.investments.tracker.unit.withdrawal;
 
 import com.investments.tracker.model.Balance;
 import com.investments.tracker.model.CashTransaction;

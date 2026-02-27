@@ -1,18 +1,7 @@
-package com.investments.tracker.unit.service;
+package com.investments.tracker.unit;
 
-import com.investments.tracker.controller.cashtransaction.CashTransactionResponse;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-
-import static com.investments.tracker.enums.CashTransactionType.DEPOSIT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
 
 public class CashTransactionServiceTest {
 //    @Test

@@ -32,7 +32,7 @@ import static com.investments.tracker.enums.CashTransactionType.WITHDRAWAL;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping("/api/cashtransactions")
+@RequestMapping("/api/v1/cashtransactions")
 @CrossOrigin(
         origins = "http://localhost:3000",
         methods = RequestMethod.GET
@@ -46,16 +46,16 @@ public class CashTransactionController {
     @Value("${application.start-date}")
     private String startDate;
 
-    @GetMapping(value = "/v1/get", produces = APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/get", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @Operation(
-            operationId = "getCashTransactions",
+            operationId = "getCashTransactionsFromTo",
             summary = "Get cash transactions in range",
             description = "Get cash transactions in range")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Got cash transactions in range",
+                    description = "Get cash transactions in range",
                     content = {
                             @Content(mediaType = APPLICATION_JSON_VALUE,
                                     array = @ArraySchema(schema = @Schema(implementation = CashTransactionResponse.class)))
@@ -82,16 +82,16 @@ public class CashTransactionController {
     }
 
 
-    @GetMapping(value = "/v1/get-total-amount", produces = APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/get-total-amount", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @Operation(
             operationId = "getTotalCashTransactionsAmount",
-            summary = "Get total cash transactions amount",
-            description = "Get total cash transactions amount")
+            summary = "Get total cash transactions amount for type",
+            description = "Get total cash transactions amount for type")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Got total cash transactions amount",
+                    description = "Get total cash transactions amount for type",
                     content = {
                             @Content(mediaType = APPLICATION_JSON_VALUE,
                                     array = @ArraySchema(schema = @Schema(implementation = BigDecimal.class)))

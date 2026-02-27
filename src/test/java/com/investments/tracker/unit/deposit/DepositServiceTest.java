@@ -1,4 +1,4 @@
-package com.investments.tracker.unit.service.deposit;
+package com.investments.tracker.unit.deposit;
 
 import com.investments.tracker.mapper.CashTransactionMapper;
 import com.investments.tracker.mapper.DepositMapper;

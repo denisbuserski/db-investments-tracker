@@ -1,4 +1,4 @@
-package com.investments.tracker.unit.service.withdrawal;
+package com.investments.tracker.unit.withdrawal;
 
 import com.investments.tracker.controller.withdrawal.WithdrawalRequest;
 import com.investments.tracker.mapper.CashTransactionMapper;
