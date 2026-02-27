@@ -1,6 +1,6 @@
 -- liquibase formatted sql
 
--- changeset dbuserski:009-create-precious-metals-table
+-- changeset dbuserski:005-create-precious-metals-table
 CREATE TABLE precious_metals (
     id BIGSERIAL PRIMARY KEY,
     type VARCHAR(255) NOT NULL,
