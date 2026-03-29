@@ -17,11 +17,7 @@ import java.util.List;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping("/api/v1/report")
-@CrossOrigin(
-        origins = "http://localhost:3000",
-        methods = { RequestMethod.POST }
-)
+@RequestMapping("/api/v1/reports")
 @Slf4j
 @Tag(name = "Report Controller", description = "Provides different reports")
 @RequiredArgsConstructor

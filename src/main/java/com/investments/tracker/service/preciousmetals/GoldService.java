@@ -1,4 +1,4 @@
-package com.investments.tracker.service.gold;
+package com.investments.tracker.service.preciousmetals;
 
 import com.investments.tracker.controller.preciousmetals.GoldBuyRequest;
 import com.investments.tracker.model.PreciousMetal;

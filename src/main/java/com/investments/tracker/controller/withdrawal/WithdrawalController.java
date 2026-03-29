@@ -20,10 +20,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping("/api/v1/withdrawals")
-@CrossOrigin(
-        origins = "http://localhost:3000",
-        methods = { RequestMethod.POST }
-)
 @Slf4j
 @Tag(name = "Withdrawal Controller", description = "Contains REST POST method for creating a withdrawal in the database")
 @RequiredArgsConstructor

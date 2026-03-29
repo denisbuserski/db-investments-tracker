@@ -1,6 +1,6 @@
 package com.investments.tracker.controller.preciousmetals;
 
-import com.investments.tracker.service.gold.GoldService;
+import com.investments.tracker.service.preciousmetals.GoldService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -16,17 +16,13 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping("/api/v1/preciousmetals")
-@CrossOrigin(
-        origins = "http://localhost:3000",
-        methods = { RequestMethod.POST }
-)
 @Slf4j
 @Tag(name = "Precious Metals Controller", description = "Contains REST methods for Precious metals interacting")
 @RequiredArgsConstructor
 public class PreciousMetalsController {
     private final GoldService goldService;
 
-    @PostMapping(value = "/gold/in", produces = APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/create-gold-transaction", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(
             operationId = "insertGoldTransaction",
@@ -39,6 +35,7 @@ public class PreciousMetalsController {
     })
     public ResponseEntity<Void> insertGoldTransaction(@RequestBody @Valid GoldBuyRequest goldBuyRequest) {
         log.info("Inserting GOLD transaction");
+
         goldService.insertGoldTransaction(goldBuyRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
